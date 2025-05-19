@@ -2,6 +2,10 @@
 
 This is a simple **Typing Speed Test** web application built using **HTML**, **CSS**, and **JavaScript**. It allows users to test their typing speed (Words Per Minute) and accuracy as they type a provided text. The timer starts as soon as the user types the first character, and the test ends when the user completes the sentence correctly.
 
+## Demo
+
+https://ayushlochan.github.io/Typing-Speed-Test/
+
 ## Features
 
 * **Words Per Minute (WPM)**: Displays the typing speed based on words typed per minute.
