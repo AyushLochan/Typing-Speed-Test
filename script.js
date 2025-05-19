@@ -9,6 +9,7 @@ let sentence = "";
 let startTime;
 let interval;
 let totalErrors = 0;
+let timerStarted = false;
 
 const sentenceDisplay = document.getElementById("sentence");
 const input = document.getElementById("input");
@@ -23,10 +24,12 @@ function startTest() {
   input.value = "";
   input.disabled = false;
   input.focus();
-  startTime = new Date();
   totalErrors = 0;
-
-  interval = setInterval(updateTime, 1000);
+  timerStarted = false;
+  timeDisplay.textContent = "0";
+  wpmDisplay.textContent = "0";
+  accuracyDisplay.textContent = "0%";
+  errorsDisplay.textContent = "0";
 }
 
 function updateTime() {
@@ -38,7 +41,7 @@ function updateTime() {
 function calculateResults() {
   const typedText = input.value;
   const timeElapsed = (new Date() - startTime) / 60000; // in minutes
-  const wordsTyped = typedText.trim().split(/\s+/).length;
+  const wordsTyped = typedText.trim().split(/\s+/).filter(word => word !== "").length;
   const wpm = Math.round(wordsTyped / timeElapsed);
 
   let correctChars = 0;
@@ -62,7 +65,14 @@ function calculateResults() {
 }
 
 input.addEventListener("input", () => {
+  if (!timerStarted) {
+    timerStarted = true;
+    startTime = new Date();
+    interval = setInterval(updateTime, 1000);
+  }
+
   calculateResults();
+
   if (input.value === sentence) {
     clearInterval(interval);
     input.disabled = true;
@@ -71,10 +81,6 @@ input.addEventListener("input", () => {
 
 function restartTest() {
   clearInterval(interval);
-  timeDisplay.textContent = "0";
-  wpmDisplay.textContent = "0";
-  accuracyDisplay.textContent = "0%";
-  errorsDisplay.textContent = "0";
   startTest();
 }
 
