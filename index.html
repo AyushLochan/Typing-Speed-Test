@@ -1,24 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Typing Speed Test</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Test</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <div class="container">
-    <h1>Typing Speed Test</h1>
-    <p id="sentence"></p>
-    <textarea id="input" placeholder="Start typing..." rows="5"></textarea>
-    <div id="results">
-      <p><strong>Time:</strong> <span id="time">0</span> sec</p>
-      <p><strong>WPM:</strong> <span id="wpm">0</span></p>
-      <p><strong>Accuracy:</strong> <span id="accuracy">0%</span></p>
-      <p><strong>Errors:</strong> <span id="errors">0</span></p>
+    <div class="container">
+        <h1>Typing Speed Test</h1>
+        <p>The timer starts automatically when you begin typing. Type the text below as accurately as possible:</p>
+
+        <div class="test-text" id="test-text">
+            The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick
+            daft zebras jump!
+        </div>
+
+        <textarea id="input-area" class="input-area" placeholder="Start typing here..." rows="5"></textarea>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-value" id="wpm">0</div>
+                <div class="stat-label">WPM</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="accuracy">100%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="errors">0</div>
+                <div class="stat-label">Errors</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="timer">0</div>
+                <div class="stat-label">Seconds</div>
+            </div>
+        </div>
+
+        <button id="reset-btn">Reset</button>
+        <button id="new-text-btn">New Text</button>
     </div>
-    <button onclick="restartTest()">Restart</button>
-  </div>
-  <script src="script.js"></script>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
