@@ -1,87 +1,131 @@
-const sentences = [
-  "Typing is a useful skill for everyone.",
-  "Practice daily to improve your typing speed.",
-  "JavaScript can make your web pages interactive.",
-  "Coding challenges help build your problem-solving skills."
+
+const sampleTexts = [
+    "The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump!",
+    "Success is not final, failure is not fatal: it is the courage to continue that counts. Life is what happens when you're busy making other plans.",
+    "Computers are incredibly fast, accurate, and stupid. Human beings are incredibly slow, inaccurate, and brilliant. Together they are powerful beyond imagination.",
+    "Programming isn't about what you know; it's about what you can figure out. The only way to learn a new programming language is by writing programs in it.",
+    "The best error message is the one that never shows up. Good code is its own best documentation. When you have to add a comment, consider rewriting the code instead."
 ];
 
-let sentence = "";
-let startTime;
-let interval;
-let totalErrors = 0;
-let timerStarted = false;
 
-const sentenceDisplay = document.getElementById("sentence");
-const input = document.getElementById("input");
-const timeDisplay = document.getElementById("time");
-const wpmDisplay = document.getElementById("wpm");
-const accuracyDisplay = document.getElementById("accuracy");
-const errorsDisplay = document.getElementById("errors");
+const testTextElement = document.getElementById('test-text');
+const inputArea = document.getElementById('input-area');
+const wpmElement = document.getElementById('wpm');
+const accuracyElement = document.getElementById('accuracy');
+const errorsElement = document.getElementById('errors');
+const timerElement = document.getElementById('timer');
+const resetBtn = document.getElementById('reset-btn');
+const newTextBtn = document.getElementById('new-text-btn');
 
-function startTest() {
-  sentence = sentences[Math.floor(Math.random() * sentences.length)];
-  sentenceDisplay.textContent = sentence;
-  input.value = "";
-  input.disabled = false;
-  input.focus();
-  totalErrors = 0;
-  timerStarted = false;
-  timeDisplay.textContent = "0";
-  wpmDisplay.textContent = "0";
-  accuracyDisplay.textContent = "0%";
-  errorsDisplay.textContent = "0";
-}
 
-function updateTime() {
-  const currentTime = Math.floor((new Date() - startTime) / 1000);
-  timeDisplay.textContent = currentTime;
-  calculateResults();
-}
+let startTime = null;
+let timerInterval = null;
+let errorCount = 0;
+let isTestActive = false;
+let currentText = testTextElement.textContent.trim();
 
-function calculateResults() {
-  const typedText = input.value;
-  const timeElapsed = (new Date() - startTime) / 60000; // in minutes
-  const wordsTyped = typedText.trim().split(/\s+/).filter(word => word !== "").length;
-  const wpm = Math.round(wordsTyped / timeElapsed);
-
-  let correctChars = 0;
-  let errors = 0;
-
-  for (let i = 0; i < typedText.length; i++) {
-    if (typedText[i] === sentence[i]) {
-      correctChars++;
-    } else {
-      errors++;
+function startTimer() {
+    if (!isTestActive) {
+        isTestActive = true;
+        startTime = new Date();
+        requestAnimationFrame(updateTimerDisplay);
+        timerInterval = setInterval(updateTimerDisplay, 100);
     }
-  }
-
-  const accuracy = ((correctChars / sentence.length) * 100).toFixed(1);
-
-  totalErrors = errors;
-
-  wpmDisplay.textContent = isFinite(wpm) ? wpm : 0;
-  accuracyDisplay.textContent = `${accuracy}%`;
-  errorsDisplay.textContent = totalErrors;
 }
 
-input.addEventListener("input", () => {
-  if (!timerStarted) {
-    timerStarted = true;
-    startTime = new Date();
-    interval = setInterval(updateTime, 1000);
-  }
+function updateTimerDisplay() {
+    const currentTime = new Date();
+    const elapsedTime = (currentTime - startTime) / 1000;
+    timerElement.textContent = elapsedTime.toFixed(1);
 
-  calculateResults();
+    updateWPM(elapsedTime);
+}
 
-  if (input.value === sentence) {
-    clearInterval(interval);
-    input.disabled = true;
-  }
+function stopTimer() {
+    clearInterval(timerInterval);
+    isTestActive = false;
+}
+
+function updateWPM(seconds) {
+    if (seconds === 0) return;
+
+    const typedValue = inputArea.value.trim();
+    const wordsTyped = typedValue.length / 5;
+    const minutes = seconds / 60;
+    const wpm = Math.round(wordsTyped / minutes);
+
+    wpmElement.textContent = wpm;
+}
+
+function updateAccuracy() {
+    const typedValue = inputArea.value.trim();
+    const targetTextSubstring = currentText.substring(0, typedValue.length);
+
+    let correctChars = 0;
+    errorCount = 0;
+
+    for (let i = 0; i < typedValue.length; i++) {
+        if (i >= targetTextSubstring.length || typedValue[i] !== targetTextSubstring[i]) {
+            errorCount++;
+        } else {
+            correctChars++;
+        }
+    }
+
+    const accuracyPct = typedValue.length > 0
+        ? Math.round((correctChars / typedValue.length) * 100)
+        : 100;
+
+    accuracyElement.textContent = `${accuracyPct}%`;
+    errorsElement.textContent = errorCount;
+}
+
+inputArea.addEventListener('keydown', function (e) {
+    if (!isTestActive && e.key.length === 1) {
+        startTimer();
+    }
 });
 
-function restartTest() {
-  clearInterval(interval);
-  startTest();
-}
+inputArea.addEventListener('input', function () {
+    updateAccuracy();
 
-window.onload = startTest;
+    if (inputArea.value.trim() === currentText) {
+        stopTimer();
+        inputArea.style.borderColor = '#4CAF50';
+        inputArea.style.backgroundColor = '#e6ffe6';
+    }
+});
+
+resetBtn.addEventListener('click', function () {
+    stopTimer();
+    inputArea.value = '';
+    errorCount = 0;
+    wpmElement.textContent = '0';
+    accuracyElement.textContent = '100%';
+    errorsElement.textContent = '0';
+    timerElement.textContent = '0';
+    inputArea.style.borderColor = '#ddd';
+    inputArea.style.backgroundColor = 'white';
+    inputArea.focus();
+});
+
+newTextBtn.addEventListener('click', function () {
+    stopTimer();
+    const randomIndex = Math.floor(Math.random() * sampleTexts.length);
+    currentText = sampleTexts[randomIndex];
+    testTextElement.textContent = currentText;
+
+    inputArea.value = '';
+    errorCount = 0;
+    wpmElement.textContent = '0';
+    accuracyElement.textContent = '100%';
+    errorsElement.textContent = '0';
+    timerElement.textContent = '0';
+    inputArea.style.borderColor = '#ddd';
+    inputArea.style.backgroundColor = 'white';
+    inputArea.focus();
+});
+
+window.onload = function () {
+    inputArea.focus();
+};
