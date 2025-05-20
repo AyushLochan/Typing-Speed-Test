@@ -1,57 +1,79 @@
-# Typing Speed Test
+# 🚀 Typing Speed Test
 
-This is a simple **Typing Speed Test** web application built using **HTML**, **CSS**, and **JavaScript**. It allows users to test their typing speed (Words Per Minute) and accuracy as they type a provided text. The timer starts as soon as the user types the first character, and the test ends when the user completes the sentence correctly.
+A sleek and interactive **Typing Speed Test** web application built using **HTML**, **CSS**, and **JavaScript**. This app enables users to measure their **typing speed (WPM)**, **accuracy**, and **error count** in real-time as they type a randomly generated sentence. The timer starts with your first keystroke and stops once the sentence is typed correctly.
 
-## Demo
+## 🌐 Live Demo
 
-https://ayushlochan.github.io/Typing-Speed-Test/
+[🔗 Try the Demo](https://ayushlochan.github.io/Typing-Speed-Test/)
 
-## Features
+---
 
-* **Words Per Minute (WPM)**: Displays the typing speed based on words typed per minute.
-* **Accuracy**: Shows the typing accuracy as a percentage.
-* **Error Count**: Tracks the number of incorrect characters typed.
-* **Timer**: Displays the elapsed time (in seconds) while typing.
-* **Reset**: Resets the test to allow users to try again.
-* **New Text**: Provides a random sentence from a list for users to type.
+## ✨ Features
 
-## How to Use
+* **⏱ Real-Time WPM (Words Per Minute)**
+  Tracks and displays your typing speed live.
 
-1. Open the **index.html** file in your browser.
-2. The test text will appear on the screen. Start typing the provided text into the text area.
-3. The **timer** will start as soon as you type the first character.
-4. Your **typing speed (WPM)** and **accuracy** will be updated in real-time.
-5. If you make mistakes, they will be counted in the **error count**.
-6. Once you finish typing the full sentence correctly, the timer will stop, and you can reset or start a new test.
+* **✅ Accuracy Monitoring**
+  Shows how accurately you're typing as a percentage.
 
-### Buttons:
+* **❌ Error Counter**
+  Counts incorrect characters typed during the test.
 
-* **Reset**: Resets the test to start fresh.
-* **New Text**: Chooses a random text from the provided list.
+* **🕒 Timer**
+  Automatically starts with your first keystroke and tracks elapsed time.
 
-## Project Setup
+* **🔁 Reset Button**
+  Instantly resets the test for a fresh attempt.
 
-1. **Clone the repository**:
+* **🆕 New Text Generator**
+  Loads a random sentence from a predefined list to keep things interesting.
+
+---
+
+## 🧑‍💻 How to Use
+
+1. **Open** the `index.html` file in any modern browser.
+2. A random test sentence will appear on the screen.
+3. Begin typing into the input box — the timer starts with your first character.
+4. Monitor your **WPM**, **accuracy**, and **error count** in real-time.
+5. Once the sentence is typed correctly, the timer stops.
+6. Click **Reset** to try again, or **New Text** to get a different sentence.
+
+---
+
+## 🔘 App Controls
+
+* **Reset**: Clears everything and restarts the test.
+* **New Text**: Loads a different sentence for a new challenge.
+
+---
+
+## 🛠 Project Setup
+
+1. **Clone the Repository**
 
    ```bash
    git clone https://github.com/yourusername/typing-speed-test.git
    ```
 
-2. **Open the project**:
-   Navigate to the project directory and open `index.html` in your browser.
+2. **Launch the App**
+   Navigate to the project folder and open `index.html` in your browser.
 
-## Files Structure
+---
 
-* `index.html`: The main HTML file for the Typing Speed Test app.
-* `style.css`: Contains the styles for the web app (embedded in the `<style>` tag in the HTML).
-* `app.js`: Contains the JavaScript code to run the typing test (embedded in the `<script>` tag in the HTML).
+## 📁 File Structure
 
-## Technologies Used
+```
+typing-speed-test/
+├── index.html      # Main HTML structure
+├── style.css       # Styling for the app (inside <style> tag in HTML)
+└── app.js          # JavaScript logic for the typing test (inside <script> tag in HTML)
+```
 
-* **HTML5**: For the basic structure and layout of the page.
-* **CSS3**: For styling the page and making the app responsive and visually appealing.
-* **JavaScript**: For handling user interactions, calculating WPM, accuracy, and managing the timer.
+---
 
-## Contributing
+## 🧰 Technologies Used
 
-Feel free to fork the repository, submit issues, and create pull requests. Contributions are welcome!
+* **HTML5** – Markup and structure
+* **CSS3** – Styling and responsive layout
+* **JavaScript** – Core logic, interaction, and real-time calculations
